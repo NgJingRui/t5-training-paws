@@ -4,3 +4,4 @@
 
 t5_paws_training.ipynb
 step1-finetune-t5.ipynb
+/lightning_logs/
