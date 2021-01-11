@@ -1,3 +1,8 @@
+"""
+Make sure that you have created the folder "models" and inside "models", the folder to store the model.
+The model will be stored in folder "models/train_t5_small_small_gpu1"
+    since it uses t5-small and small datasets (train_small.csv & val_small.csv)
+"""
 # @title Output
 import argparse
 import glob
@@ -39,7 +44,6 @@ def set_seed(seed):
 
 set_seed(42)
 
-# TODO Move hyperparameters into separate file
 args_dict = dict(
     data_dir="data",  # path for data files
     output_dir="output",  # path to save the checkpoints
@@ -54,7 +58,7 @@ args_dict = dict(
     eval_batch_size=8,
     num_train_epochs=2,
     gradient_accumulation_steps=16,
-    n_gpu=0,
+    n_gpu=1,
     # early_stop_callback=False,
     fp_16=False,  # if you want to enable 16-bit training then install apex and set this to true
     opt_level='O1',
@@ -64,7 +68,6 @@ args_dict = dict(
 )
 
 
-# TODO Move this class into another file
 # @title class T5FineTuner(pl.LightningModule)
 class T5FineTuner(pl.LightningModule):
     def __init__(self, hparams):
@@ -205,12 +208,12 @@ class LoggingCallback(pl.Callback):
                         writer.write("{} = {}\n".format(key, str(metrics[key])))
 
 
-train_data = 'data/train.csv'
-val_data = 'data/val.csv'
-train = pd.read_csv(train_data)
-train = train[:25]
+# train_data = 'data/train.csv'
+# val_data = 'data/val.csv'
+# train = pd.read_csv(train_data)
+# train = train[:25]
 
-tokenizer = T5Tokenizer.from_pretrained('t5-base')
+# tokenizer = T5Tokenizer.from_pretrained('t5-base')
 
 
 # @title ParaphraseDataset(Dataset)
@@ -261,8 +264,8 @@ class ParaphraseDataset(Dataset):
             self.targets.append(tokenized_targets)
 
 
-dataset = ParaphraseDataset(tokenizer, data_dir='data', type_path='val')
-data = dataset[100]
+# dataset = ParaphraseDataset(tokenizer, data_dir='data', type_path='val')
+# data = dataset[100]
 args = argparse.Namespace(**args_dict)
 checkpoint_callback = pl.callbacks.ModelCheckpoint(
     filepath=args.output_dir, prefix="checkpoint", monitor="val_loss", mode="min", save_top_k=5
@@ -292,6 +295,6 @@ trainer = pl.Trainer(**train_params)
 
 trainer.fit(model)
 
-model.model.save_pretrained('train_t5_small/')
+model.model.save_pretrained('models/train_t5_small_full_gpu1/')
 
 print("Saved Model")
