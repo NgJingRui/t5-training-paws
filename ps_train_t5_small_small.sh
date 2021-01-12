@@ -4,7 +4,7 @@ pip --version
 python3 --version
 pip install --upgrade pip
 
-pip install torch==1.4.0
+pip install torch==1.7.0
 pip install transformers==2.9.0
 pip install pytorch_lightning==0.7.5
 pip install numpy
