@@ -1,6 +1,6 @@
 """
 Make sure that you have created the folder "models" and inside "models", the folder to store the model.
-The model will be stored in folder "models/train_t5_small_full_gpu1"
+The model will be stored in folder "models/train_t5_small_full"
     since it uses t5-small and small datasets (train.csv & val.csv)
 """
 # @title Output
@@ -58,7 +58,7 @@ args_dict = dict(
     eval_batch_size=8,
     num_train_epochs=2,
     gradient_accumulation_steps=16,
-    n_gpu=1,
+    n_gpu=0,
     # early_stop_callback=False,
     fp_16=False,  # if you want to enable 16-bit training then install apex and set this to true
     opt_level='O1',
@@ -295,6 +295,6 @@ trainer = pl.Trainer(**train_params)
 
 trainer.fit(model)
 
-model.model.save_pretrained('models/train_t5_small_full_gpu1/')
+model.model.save_pretrained('models/train_t5_small_full/')
 
 print("Saved Model")
