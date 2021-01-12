@@ -15,3 +15,9 @@ pip install nltk
 python3 train_t5_small_small.py
 
 mkdir output
+mkdir lightning_logs
+mkdir models
+cd models
+mkdir train_t5_small_small
+cd ..
+ls
