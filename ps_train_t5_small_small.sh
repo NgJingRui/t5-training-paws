@@ -20,3 +20,8 @@ mkdir train_t5_small_small
 cd ..
 
 python3 train_t5_small_small.py
+
+cd models
+cd train_t5_small_small
+mv config.json artifacts/
+mv pytorch_model.bin artifacts/
