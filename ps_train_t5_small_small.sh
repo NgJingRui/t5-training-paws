@@ -13,3 +13,5 @@ pip install tqdm
 pip install nltk
 
 python3 train_t5_small_small.py
+
+mkdir output
