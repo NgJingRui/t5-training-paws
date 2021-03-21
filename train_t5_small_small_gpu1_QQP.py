@@ -296,6 +296,6 @@ trainer = pl.Trainer(**train_params)
 
 trainer.fit(model)
 
-model.model.save_pretrained('models/train_t5_base_full_gpu1/')
+model.model.save_pretrained('models/train_t5_small_small_gpu1_QQP/')
 
 print("Saved Model")
